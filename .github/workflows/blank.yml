@@ -34,8 +34,9 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y lavacli snapd
-          snap install yq
+          apt-get install -y lavacli wget
+          wget https://github.com/mikefarah/yq/releases/download/v4.9.3/yq_linux_amd64 -O /usr/bin/yq 
+          chmod +x /usr/bin/yq
 
       - name: Create build files
         run: |
