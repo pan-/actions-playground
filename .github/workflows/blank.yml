@@ -65,7 +65,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.LAVA_SERVER_TOKEN }}
         run: |
-          yq e '.secrets.GITHUB_TOKEN = $GITHUB_TOKEN' $GITHUB_WORKSPACE/lava/job.yml > job.yml 
+          yq e ".secrets.GITHUB_TOKEN = \"$GITHUB_TOKEN\"" $GITHUB_WORKSPACE/lava/job.yml > job.yml 
 
       - name: launch lava job
         env:
