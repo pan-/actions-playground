@@ -4,6 +4,9 @@ job_name: test tag
 tags:
 - chip
 
+secrets:
+  GITHUB_TOKEN: your-token-here
+
 timeouts:
   job:
     minutes: 5
