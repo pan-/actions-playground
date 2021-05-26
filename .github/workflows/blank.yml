@@ -34,7 +34,8 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y lavacli yq
+          apt-get install -y lavacli
+          snap install yq
 
       - name: Create build files
         run: |
