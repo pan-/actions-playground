@@ -5,7 +5,12 @@ tags:
 - chip
 
 secrets:
-  GITHUB_TOKEN: your-token-here
+  GITHUB_TOKEN: _
+
+environment:
+  GITHUB_REPOSITORY: _
+  GITHUB_ARTIFACT_NAME: _
+  GITHUB_SHA: _
 
 timeouts:
   job:
@@ -38,5 +43,9 @@ actions:
           name: test
         run:
           steps:
-          - |
-            echo "Hello World"
+          - apt-get update 
+          - apt-get install git 
+          # - set +x
+          # - . $PWD/../../../secrets
+          # - set -x
+          - git clone $GITHUB_REPOSITORY $GITHUB_SHA
