@@ -120,7 +120,7 @@ download_artifacts () {
     OUTPUT_NAME="$4"
 
     URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts"
-    JQ_QUERY=".artifacts | map(select(.name==\""${GITHUB_ARTIFACT_NAME}"\")) | .[0].archive_download_url"
+    JQ_QUERY=".artifacts | map(select(.name=="${GITHUB_ARTIFACT_NAME}")) | .[0].archive_download_url"
     DOWNLOAD_URL="$(curl -s ${URL} | jq -r "${JQ_QUERY}")"
     AUTHORIZATION_HEADER="Authorization: token "${GITHUB_TOKEN}
 
