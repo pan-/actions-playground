@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-set -e
+set -xe
 
 # Fix me: Check arguments validity 
 GITHUB_REPOSITORY=$1 
