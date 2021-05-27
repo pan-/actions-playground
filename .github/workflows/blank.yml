@@ -63,7 +63,7 @@ jobs:
 
       - name: Prepare lava job
         env:
-          GITHUB_TOKEN: ${{ secrets.ARTIFACT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           JOB_FILE=$GITHUB_WORKSPACE/lava/job.yml
           GITHUB_REPOSITORY_URL="$GITHUB_SERVER_URL"/"$GITHUB_REPOSITORY".git
