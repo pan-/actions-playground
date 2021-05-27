@@ -66,7 +66,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.LAVA_SERVER_TOKEN }}
         run: |
           JOB_FILE=$GITHUB_WORKSPACE/lava/job.yml
-          GITHUB_REPOSITORY_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY
+          GITHUB_REPOSITORY_URL="$GITHUB_SERVER_URL"/"$GITHUB_REPOSITORY".git
+          yq e -i ".environment.GITHUB_REPOSITORY = \"$GITHUB_REPOSITORY\"" $JOB_FILE
           yq e -i ".environment.GITHUB_REPOSITORY = \"$GITHUB_REPOSITORY_URL\"" $JOB_FILE
           yq e -i ".environment.GITHUB_ARTIFACT_NAME = \"unit-test-build-${{steps.outsuffix.outputs.value}}\"" $JOB_FILE
           yq e -i ".environment.GITHUB_SHA = \"$GITHUB_SHA\"" $JOB_FILE
