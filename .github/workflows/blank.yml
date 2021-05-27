@@ -66,11 +66,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.LAVA_SERVER_TOKEN }}
         run: |
           JOB_FILE=$GITHUB_WORKSPACE/lava/job.yml
-          GITHUB_REPOSITORY_URL=${{GITHUB_SERVER_URL}}/${{GITHUB_REPOSITORY}}
+          GITHUB_REPOSITORY_URL=${{env.GITHUB_SERVER_URL}}/${{env.GITHUB_REPOSITORY}}
           yq e ".secrets.GITHUB_TOKEN = \"$GITHUB_TOKEN\"" $JOB_FILE > job.yml 
           yq e ".environment.GITHUB_REPOSITORY = \"$GITHUB_REPOSITORY_URL\"" $JOB_FILE > job.yml
           yq e ".environment.GITHUB_ARTIFACT_NAME = \"unit-test-build-${{steps.outsuffix.outputs.value}}\"" $JOB_FILE > job.yml
-          yq e ".environment.GITHUB_SHA = \"${{GITHUB_SHA}}\"" $JOB_FILE > job.yml
+          yq e ".environment.GITHUB_SHA = \"${{env.GITHUB_SHA}}\"" $JOB_FILE > job.yml
 
       - name: launch lava job
         env:
