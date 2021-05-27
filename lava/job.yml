@@ -48,4 +48,4 @@ actions:
           # - set -x
           - git clone "$GITHUB_REPOSITORY".git repo
           - cd repo
-          - git checkout $SHA 
+          - git checkout $GITHUB_SHA 
