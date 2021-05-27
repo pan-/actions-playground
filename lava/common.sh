@@ -110,8 +110,8 @@ enable_bluetooth () {
 
 
 download_artifacts () {
-    if [ $# -lt 3 ]; then
-        echo "download_artifacts requires at least 3 arguments" && exit 1
+    if [ $# -lt 4 ]; then
+        echo "download_artifacts requires at least 4 arguments" && exit 1
     fi
 
     GITHUB_REPOSITORY="$1"
