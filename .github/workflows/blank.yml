@@ -67,10 +67,10 @@ jobs:
         run: |
           JOB_FILE=$GITHUB_WORKSPACE/lava/job.yml
           GITHUB_REPOSITORY_URL=${{env.GITHUB_SERVER_URL}}/${{env.GITHUB_REPOSITORY}}
-          yq e ".secrets.GITHUB_TOKEN = \"$GITHUB_TOKEN\"" $JOB_FILE > job.yml 
-          yq e ".environment.GITHUB_REPOSITORY = \"$GITHUB_REPOSITORY_URL\"" $JOB_FILE > job.yml
-          yq e ".environment.GITHUB_ARTIFACT_NAME = \"unit-test-build-${{steps.outsuffix.outputs.value}}\"" $JOB_FILE > job.yml
-          yq e ".environment.GITHUB_SHA = \"${{env.GITHUB_SHA}}\"" $JOB_FILE > job.yml
+          yq e -i ".secrets.GITHUB_TOKEN = \"$GITHUB_TOKEN\"" $JOB_FILE  
+          yq e -i ".environment.GITHUB_REPOSITORY = \"$GITHUB_REPOSITORY_URL\"" $JOB_FILE
+          yq e -i ".environment.GITHUB_ARTIFACT_NAME = \"unit-test-build-${{steps.outsuffix.outputs.value}}\"" $JOB_FILE
+          yq e -i ".environment.GITHUB_SHA = \"${{env.GITHUB_SHA}}\"" $JOB_FILE
 
       - name: launch lava job
         env:
