@@ -46,6 +46,6 @@ actions:
           # - set +x
           # - . $PWD/../../../secrets
           # - set -x
-          - git clone $GITHUB_REPOSITORY repo
+          - git clone "$GITHUB_REPOSITORY".git repo
           - cd repo
           - git checkout $SHA 
