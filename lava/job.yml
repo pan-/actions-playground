@@ -25,7 +25,7 @@ actions:
 - deploy:
     to: docker
     image:
-      name: ubuntu
+      name: pan2048/chip-ci-test:latest
 - boot:
     method: docker
     command: bash
@@ -43,9 +43,9 @@ actions:
           name: test
         run:
           steps:
-          - apt-get update 
-          - apt-get install -y --no-install-recommends git 
           # - set +x
           # - . $PWD/../../../secrets
           # - set -x
-          - git clone $GITHUB_REPOSITORY $GITHUB_SHA
+          - git clone $GITHUB_REPOSITORY repo
+          - cd repo
+          - git checkout $SHA 
