@@ -29,10 +29,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Print event
-        env:
-          EVENT: ${{ github.event }}
         run: |
-          echo $EVENT
+          cat $GITHUB_EVENT_PATH
 
 
       # - name: Install dependencies
