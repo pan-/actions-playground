@@ -56,6 +56,7 @@ jobs:
 
   # Start the lava job and collect the result 
   test:
+    needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
