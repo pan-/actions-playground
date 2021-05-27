@@ -114,21 +114,16 @@ download_artifacts () {
         echo "download_artifacts requires at least 3 arguments" && exit 1
     fi
 
-
-    # Using secrets, we hide the output 
-
-    set +x
     GITHUB_REPOSITORY="$1"
     GITHUB_ARTIFACT_NAME="$2"
     GITHUB_TOKEN="$3"
     OUTPUT_NAME="$4"
-
 
     URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts"
     JQ_QUERY=".artifacts | map(select(.name==\""${GITHUB_ARTIFACT_NAME}"\")) | .[0].archive_download_url"
     DOWNLOAD_URL="$(curl -s ${URL} | jq -r "${JQ_QUERY}")"
     AUTHORIZATION_HEADER="Authorization: token "${GITHUB_TOKEN}
 
+    echo "URL of artifact retrieved: $DOWNLOAD_URL"
     curl -s -H "$AUTHORIZATION_HEADER" $DOWNLOAD_URL -L --output $OUTPUT_NAME
-    set -x
 }

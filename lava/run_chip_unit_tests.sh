@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-set -ex
+set -e
 
 # Fix me: Check arguments validity 
 GITHUB_REPOSITORY=$1 
@@ -12,6 +12,7 @@ SCRIPT_DIR="$(realpath "${DIR}")"    # Resolve its full path if need be
 
 source $SCRIPT_DIR/common.sh
 
+echo "Downloading artifact: $GITHUB_ARTIFACT_NAME in $GITHUB_REPOSITORY"
 download_artifacts $GITHUB_REPOSITORY $GITHUB_ARTIFACT_NAME $GITHUB_TOKEN archive.zip
 
 unzip archive.zip
