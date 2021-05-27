@@ -50,10 +50,6 @@ actions:
           - cd ..
           - set +x
           - . $PWD/../../../secrets
-          - echo "Start test execution"
-          - > 
-            /bin/bash repo/lava/run_chip_unit_tests.sh
-              $GITHUB_REPOSITORY
-              $GITHUB_ARTIFACT_NAME
-              $GITHUB_TOKEN
           - set -x
+          - echo "Start test execution"
+          - /bin/bash repo/lava/run_chip_unit_tests.sh $GITHUB_REPOSITORY $GITHUB_ARTIFACT_NAME $GITHUB_TOKEN
