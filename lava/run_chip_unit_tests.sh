@@ -17,5 +17,6 @@ download_artifacts $GITHUB_REPOSITORY $GITHUB_ARTIFACT_NAME $GITHUB_TOKEN archiv
 
 unzip archive.zip
 ls -la 
+cat out.hex
 
 
