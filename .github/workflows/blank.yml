@@ -31,13 +31,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: |
-          apt-get update
-          apt-get install -y lavacli wget
-          wget https://github.com/mikefarah/yq/releases/download/v4.9.3/yq_linux_amd64 -O /usr/bin/yq 
-          chmod +x /usr/bin/yq
-
       - name: Create build files
         run: |
             echo "Hello World" > out.hex
@@ -61,6 +54,35 @@ jobs:
             name: unit-test-build-${{steps.outsuffix.outputs.value }}
             path: /tmp/output_binaries/out.hex
 
+  # Start the lava job and collect the result 
+  test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Container definition that will run the test
+    container:
+        image: ubuntu:latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y lavacli wget
+          wget https://github.com/mikefarah/yq/releases/download/v4.9.3/yq_linux_amd64 -O /usr/bin/yq 
+          chmod +x /usr/bin/yq
+
+      - name: Binary artifact suffix
+        id: outsuffix
+        uses: haya14busa/action-cond@v1.0.0
+        with:
+            cond: ${{ github.event.pull_request.number == '' }}
+            if_true: "${{ github.sha }}"
+            if_false: "pull-${{ github.event.pull_request.number }}"
+
       - name: Prepare lava job
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -72,7 +94,6 @@ jobs:
           yq e -i ".environment.GITHUB_ARTIFACT_NAME = \"unit-test-build-${{steps.outsuffix.outputs.value}}\"" $JOB_FILE
           yq e -i ".environment.GITHUB_SHA = \"$GITHUB_SHA\"" $JOB_FILE
           yq e -i ".secrets.GITHUB_TOKEN = \"$GITHUB_TOKEN\"" $JOB_FILE  
-
 
       - name: launch lava job
         env:
